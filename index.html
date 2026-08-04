@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para você!</title>
+    
+    <!-- Puxando a biblioteca de confetes da internet -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #2c3e50;
+        font-family: Arial, sans-serif;
+        color: #ecf0f1;
+        text-align: center;
+        /* Adiciona um pequeno respiro nas laterais para telas muito pequenas */
+        padding: 0 20px; 
+        box-sizing: border-box;
+    }
+
+    #container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #caixa-presente {
+        width: 150px; /* Diminuído um pouco para celular */
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    #caixa-presente:hover {
+        transform: rotate(5deg) scale(1.1);
+    }
+
+    #surpresa {
+        display: none;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+    }
+
+    #surpresa.mostrar {
+        display: block;
+        opacity: 1;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 1.2rem;
+    }
+    
+    #imagem-surpresa {
+        /* Alterado para porcentagem para se adaptar a qualquer tela */
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-top: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Regra específica para celulares (telas menores que 600px) */
+    @media (max-width: 600px) {
+        h1 {
+            font-size: 1.8rem; /* Fonte um pouco menor */
+        }
+        p {
+            font-size: 1rem;
+        }
+        #caixa-presente {
+            width: 120px; /* Caixa de presente menor no celular */
+        }
+    }
+</style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- Imagem do presente -->
+        <img id="caixa-presente" src="https://cdn-icons-png.flaticon.com/512/4213/4213958.png" alt="Clique para abrir">
+
+        <!-- O que vai aparecer depois do clique -->
+        <div id="surpresa">
+            <h1>Meus Parabéns!</h1>
+            <p>Feliz aniversário. Aproveite o seu dia.</p>
+            <img id="imagem-surpresa" src="JM.png" alt="Surpresa">
+        </div>
+    </div>
+
+    <script>
+        const caixaPresente = document.getElementById('caixa-presente');
+        const surpresa = document.getElementById('surpresa');
+
+        caixaPresente.addEventListener('click', function() {
+            // 1. Esconde a caixa de presente
+            caixaPresente.style.display = 'none';
+            
+            // 2. Mostra a mensagem
+            surpresa.classList.add('mostrar');
+
+            // 3. Dispara a explosão de confetes!
+            confetti({
+                particleCount: 150, // Quantidade de confetes
+                spread: 80,         // O quanto eles se espalham
+                origin: { y: 0.6 }  // Origem do disparo (0 é no topo, 1 é no fundo)
+            });
+        });
+    </script>
+
+</body>
+</html>
